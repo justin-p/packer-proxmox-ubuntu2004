@@ -1,0 +1,23 @@
+#cloud-config
+autoinstall:
+  version: 1
+  refresh-installer:
+    update: yes  
+  ssh:
+    install-server: true
+    allow-pw: true
+  packages:
+    - qemu-guest-agent
+  storage:
+    layout:
+      name: lvm
+  user-data:
+    package_upgrade: true
+    timezone: Europe/Amsterdam
+    users:
+      - name: ubuntu
+        passwd: $6$xyz$lrzkz89JCrvzOPr56aXfFFqGZpBReOx5ndDu9m5CwVFWjZsEIhvVm.I5B4zMxJdcdTyAvncwjKT.dWcD/ZHIo.
+        groups: [adm, cdrom, dip, plugdev, lxd, sudo]
+        lock_passwd: false
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        shell: /bin/bash

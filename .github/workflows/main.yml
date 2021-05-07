@@ -1,0 +1,47 @@
+---
+name: CI
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        
+      - uses: hashicorp-contrib/setup-packer@v1.0.0
+        
+      - name: Packer validate
+        id: validate
+        run: packer validate .
+        
+      - name: Packer fmt
+        id: fmt
+        run: packer fmt -check -diff .
+        if: success() || failure()
+        
+      - name: Comment on Pull Request
+        uses: actions/github-script@v4.0.2
+        if: |
+          github.event_name == 'pull_request' &&
+          (success() || failure())
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const output = `#### Packer test status
+            | validate                        | fmt                        |
+            |---------------------------------|----------------------------|
+            |\`${{ steps.validate.outcome }}\`|\`${{ steps.fmt.outcome }}\`|
+            
+            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+      
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
