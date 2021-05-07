@@ -1,4 +1,4 @@
-source "proxmox" "ubuntu20_04" {
+source "proxmox" "ubuntu2004" {
   username                 = "${var.proxmox_username}"
   password                 = "${var.proxmox_password}"
   proxmox_url              = "${var.proxmox_url}"
@@ -7,12 +7,13 @@ source "proxmox" "ubuntu20_04" {
 
   template_name        = "${var.template_name}"
   template_description = "${var.template_description}"
+  os                   = "${var.template_os}"
   iso_file             = "${var.template_iso_file}"
   unmount_iso          = "${var.template_unmount_iso}"
   memory               = "${var.template_memory}"
   cores                = "${var.template_cores}"
   cpu_type             = "${var.template_cpu_type}"
-  os                   = "${var.template_os}"
+  scsi_controller      = "${var.tempalte_scsi_controller}"
   qemu_agent           = "${var.template_qemu_agent}"
 
   vga {
@@ -44,11 +45,10 @@ source "proxmox" "ubuntu20_04" {
   ssh_timeout  = "20m"
   ssh_username = "ubuntu"
   ssh_password = "ubuntu"
-
 }
 
 build {
-  sources = ["source.proxmox.ubuntu20_04"]
+  sources = ["source.proxmox.ubuntu2004"]
 
   provisioner "shell" {
     inline = [
