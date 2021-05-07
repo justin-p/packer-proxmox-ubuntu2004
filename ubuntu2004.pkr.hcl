@@ -6,13 +6,13 @@ source "null" "ansible-pre-provisioning" {
 ## Run ansible pre-provisioning playbook.
 build {
   sources = ["source.null.ansible-pre-provisioning"]
-    provisioner "ansible" {
-      playbook_file = "./playbooks/pre-provisioning.yml"
-      extra_arguments = [
-        "--extra-vars",
-        "user='${var.template_ssh_username}' password='${var.template_ssh_password}' ssh_folder='../output/ssh_keys'"
-      ] 
-    }
+  provisioner "ansible" {
+    playbook_file = "./playbooks/pre-provisioning.yml"
+    extra_arguments = [
+      "--extra-vars",
+      "user='${var.template_ssh_username}' password='${var.template_ssh_password}' ssh_folder='../output/ssh_keys'"
+    ]
+  }
 }
 
 ## Define proxmox Ubuntu 20.04 template.
@@ -76,5 +76,5 @@ build {
   }
   provisioner "ansible" {
     playbook_file = "./playbooks/post-provisioning.yml"
-  }  
+  }
 }

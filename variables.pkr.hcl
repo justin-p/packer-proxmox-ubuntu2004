@@ -1,10 +1,10 @@
 variable "template_ssh_username" {
-  type    = string 
+  type    = string
   default = "ubuntu"
 }
 
 variable "template_ssh_password" {
-  type    = string 
+  type    = string
   default = "ubuntu"
 }
 
