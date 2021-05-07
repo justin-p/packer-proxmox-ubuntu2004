@@ -1,6 +1,6 @@
 # packer-proxmox-ubuntu2004
 
-[![Github Actions](https://img.shields.io/github/workflow/status/justin-p/packer-proxmox-ubuntu2004/CI?label=Github%20Actions&logo=github&style=flat-square)](https://github.com/packer-proxmox-ubuntu2004/actions)
+[![Github Actions](https://img.shields.io/github/workflow/status/justin-p/packer-proxmox-ubuntu2004/CI?label=Github%20Actions&logo=github&style=flat-square)](https://github.com/justin-p/packer-proxmox-ubuntu2004/actions)
 
 Packer files to build Ubuntu 20.04 (subiquity-based) images on Proxmox. Ansible is used for 'pre' and 'post' provisioning tasks.
 
