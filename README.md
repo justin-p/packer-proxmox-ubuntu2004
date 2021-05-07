@@ -1,6 +1,8 @@
 # packer-proxmox-ubuntu2004
 
-This repository contains Packer files to build Ubuntu 20.04 (subiquity-based) images on Proxmox. Ansible is used for 'pre' and 'post' provisioning tasks.
+[![Github Actions](https://img.shields.io/github/workflow/status/justin-ppacker-proxmox-ubuntu2004/CI?label=Github%20Actions&logo=github&style=flat-square)](https://github.com/packer-proxmox-ubuntu2004/actions)
+
+Packer files to build Ubuntu 20.04 (subiquity-based) images on Proxmox. Ansible is used for 'pre' and 'post' provisioning tasks.
 
 Pre-provisioning tasks are used to dynamically generated local files such as the cloud-init user-data. This allows you to easily change the username/password used for the initial user created by cloud-init. SSH keys for the initial account are also generated and stored in the `output/ssh_keys` folder.
 
