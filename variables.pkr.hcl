@@ -1,3 +1,13 @@
+variable "template_ssh_username" {
+  type    = string
+  default = "ubuntu"
+}
+
+variable "template_ssh_password" {
+  type    = string
+  default = "ubuntu"
+}
+
 variable "proxmox_username" {
   type    = string
   default = "packer@pve"

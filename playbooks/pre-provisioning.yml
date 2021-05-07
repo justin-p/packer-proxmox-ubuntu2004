@@ -1,0 +1,29 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Generate SSH Key pair for template in "{{ ssh_folder }}"
+      community.crypto.openssh_keypair:
+        path: "{{ ssh_folder }}/id_ed25519"
+        type: ed25519
+        comment: initial_templat_key_generated_by_packer
+
+    - name: Slurp contents of public key
+      ansible.builtin.slurp: 
+        src: "{{ ssh_folder }}/id_ed25519.pub"
+      register: slurped_pubkey
+
+    - name: Decode slurped public key and store as fact
+      set_fact:
+        pubkey: "{{ slurped_pubkey.content | b64decode | trim }}"
+
+    - name: Generate password hash from {{password}}
+      shell: openssl passwd -6 -salt xyz {{password}}
+      register: gen_hashed_password
+
+    - name: Generate cloud-init files
+      ansible.builtin.template:
+        src: "{{playbook_dir}}/templates/{{ item }}.j2"
+        dest: "{{playbook_dir}}/../output/http/{{ item }}"
+      with_items:
+        - "user-data"
+        - "meta-data"

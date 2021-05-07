@@ -1,4 +1,4 @@
-#cloud-config
+#cloud-config 
 autoinstall:
   version: 1
   refresh-installer:
@@ -15,9 +15,11 @@ autoinstall:
     package_upgrade: true
     timezone: Europe/Amsterdam
     users:
-      - name: ubuntu
-        passwd: $6$xyz$lrzkz89JCrvzOPr56aXfFFqGZpBReOx5ndDu9m5CwVFWjZsEIhvVm.I5B4zMxJdcdTyAvncwjKT.dWcD/ZHIo.
+      - name: "{{ user }}"
+        passwd: "{{ gen_hashed_password.stdout }}"
         groups: [adm, cdrom, dip, plugdev, lxd, sudo]
         lock_passwd: false
         sudo: ALL=(ALL) NOPASSWD:ALL
         shell: /bin/bash
+        ssh_authorized_keys:
+          - "{{ pubkey }}"
