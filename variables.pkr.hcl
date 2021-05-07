@@ -25,11 +25,16 @@ variable "proxmox_insecure_skip_tls_verify" {
 
 variable "template_name" {
   type    = string
-  default = "ubuntu-20.04"
+  default = "ubuntu2004"
 }
 variable "template_description" {
   type    = string
   default = "Ubuntu 20.04 x86_64 template built with packer"
+}
+
+variable "template_os" {
+  type    = string
+  default = "l26"
 }
 
 variable "template_iso_file" {
@@ -56,12 +61,10 @@ variable "template_cpu_type" {
   type    = string
   default = "host"
 }
-
-variable "template_os" {
+variable "tempalte_scsi_controller" {
   type    = string
-  default = "l26"
+  default = "virtio-scsi-pci"
 }
-
 variable "template_qemu_agent" {
   type    = bool
   default = true
@@ -89,7 +92,7 @@ variable "template_network_bridge" {
 
 variable "template_disks_disk_size" {
   type    = string
-  default = "50G"
+  default = "10G"
 }
 
 variable "template_disks_storage_pool" {
