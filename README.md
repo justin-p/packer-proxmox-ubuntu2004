@@ -6,7 +6,7 @@ Pre-provisioning tasks are used to dynamically generated local files such as the
 
 Post-provisioning tasks currently disable password based authentication in the sshd_config. This is enabled by cloud-init during the provisioning. The current packer proxmox provider does not support key based authentication and needs to connect with ssh during the provisioning [to verify if cloud-init has finished](https://github.com/justin-p/packer-proxmox-ubuntu2004/blob/72153e30393ede40f12b610d4961c9a0f26fa43c/ubuntu2004.pkr.hcl#L55). 
 
-Since the cloud-init template adds a public key to [authorized_keys](https://github.com/justin-p/packer-proxmox-ubuntu2004/blob/d53fdda704347affb6b74668ee2915100efc8a94/playbooks/templates/user-data.j2#L24) file password based authentication is not needed and thus disabled once packer verifies that cloud-init has finished.
+Since the cloud-init template adds a public key to [authorized_keys](https://github.com/justin-p/packer-proxmox-ubuntu2004/blob/d53fdda704347affb6b74668ee2915100efc8a94/playbooks/templates/user-data.j2#L24) file password based authentication is not needed after image creation and thus disabled once packer verifies that cloud-init has finished.
 
 Initial code is based [prior work](https://github.com/aerialls/madalynn-packer) by [Julien Brochet](https://twitter.com/aerialls). [Link to his blog post](https://www.aerialls.io/posts/ubuntu-server-2004-image-packer-subiquity-for-proxmox/).
 
