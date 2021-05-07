@@ -13,11 +13,11 @@
       register: slurped_pubkey
 
     - name: Decode slurped public key and store as fact
-      set_fact:
+      ansible.builtin.set_fact:
         pubkey: "{{ slurped_pubkey.content | b64decode | trim }}"
 
     - name: Generate password hash from {{password}}
-      shell: openssl passwd -6 -salt xyz {{password}}
+      ansible.builtin.shell: openssl passwd -6 -salt xyz {{password}}
       register: gen_hashed_password
 
     - name: Generate cloud-init files
