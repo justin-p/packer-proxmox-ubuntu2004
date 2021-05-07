@@ -1,3 +1,21 @@
+## Dummy source that enables us to run the ansible pre-provisioning.
+source "null" "ansible-pre-provisioning" {
+  communicator = "none"
+}
+
+## Run ansible pre-provisioning playbook.
+build {
+  sources = ["source.null.ansible-pre-provisioning"]
+    provisioner "ansible" {
+      playbook_file = "./playbooks/pre-provisioning.yml"
+      extra_arguments = [
+        "--extra-vars",
+        "user='${var.template_ssh_username}' password='${var.template_ssh_password}' ssh_folder='../output/ssh_keys'"
+      ] 
+    }
+}
+
+## Define proxmox Ubuntu 20.04 template.
 source "proxmox" "ubuntu2004" {
   username                 = "${var.proxmox_username}"
   password                 = "${var.proxmox_password}"
@@ -33,7 +51,7 @@ source "proxmox" "ubuntu2004" {
     type              = "${var.template_disks_type}"
   }
 
-  http_directory = "http"
+  http_directory = "output/http"
   boot_wait      = "5s"
   boot_command = [
     "<esc><wait><esc><wait><f6><wait><esc><wait>",
@@ -43,10 +61,11 @@ source "proxmox" "ubuntu2004" {
   ]
 
   ssh_timeout  = "20m"
-  ssh_username = "ubuntu"
-  ssh_password = "ubuntu"
+  ssh_username = "${var.template_ssh_username}"
+  ssh_password = "${var.template_ssh_password}"
 }
 
+## Build proxmox Ubuntu 20.04 template and wait for cloud-init to finish.
 build {
   sources = ["source.proxmox.ubuntu2004"]
 
@@ -55,4 +74,7 @@ build {
       "while [ ! -f /var/lib/cloud/instance/boot-finished ]; do echo 'Waiting for cloud-init...'; sleep 1; done"
     ]
   }
+  provisioner "ansible" {
+    playbook_file = "./playbooks/post-provisioning.yml"
+  }  
 }

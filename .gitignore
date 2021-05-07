@@ -1,2 +1,5 @@
 secrets.auto.pkrvars.hcl
-packer_cache
+packer_cache/
+output/http/*
+output/ssh_keys/*
+!output/*/.gitkeep
