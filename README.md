@@ -19,7 +19,7 @@ Initial code is based [prior work](https://github.com/aerialls/madalynn-packer) 
 - `cp secrets.auto.pkrvars.hcl.example secrets.auto.pkrvars.hcl`
 - Overwrite desired variables in `secrets.auto.pkrvars.hcl`.
   See `variables.pkr.hcl` for all variables, most have sane defaults. The `secrets.auto.pkrvars.hcl.example` file includes most variables you want to overwrite.
-- `packer build .`
+- `packer build .`  
   *Ensure the machine you are running packer from can be reached by the guest VM. Packer spins up a HTTP server to transmit the cloud-init template. Using [template_network_bridge](https://github.com/justin-p/packer-proxmox-ubuntu2004/blob/d41c5ba08b2770d3d3753659ad54af0eb75491c9/variables.pkr.hcl#L98) might help you.*
 
 ## License
