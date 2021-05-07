@@ -10,7 +10,7 @@ Post-provisioning tasks currently disable password based authentication in the s
 
 Since the cloud-init template adds a public key to [authorized_keys](https://github.com/justin-p/packer-proxmox-ubuntu2004/blob/d53fdda704347affb6b74668ee2915100efc8a94/playbooks/templates/user-data.j2#L24) file password based authentication is not needed after image creation and thus disabled once packer verifies that cloud-init has finished.
 
-Initial code is based [prior work](https://github.com/aerialls/madalynn-packer) by [Julien Brochet](https://twitter.com/aerialls). [Link to his blog post](https://www.aerialls.io/posts/ubuntu-server-2004-image-packer-subiquity-for-proxmox/).
+Initial code is based on [prior work](https://github.com/aerialls/madalynn-packer) by [Julien Brochet](https://twitter.com/aerialls). [Link to his blog post](https://www.aerialls.io/posts/ubuntu-server-2004-image-packer-subiquity-for-proxmox/).
 
 ## Usage
 
