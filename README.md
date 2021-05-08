@@ -10,6 +10,10 @@ Post-provisioning tasks currently disable password based authentication in the s
 
 Since the cloud-init template adds a public key to [authorized_keys](https://github.com/justin-p/packer-proxmox-ubuntu2004/blob/d53fdda704347affb6b74668ee2915100efc8a94/playbooks/templates/user-data.j2#L24) file password based authentication is not needed after image creation and thus disabled once packer verifies that cloud-init has finished.
 
+Another post-provisioning is to ensure the template is 'cloud-init ready'. This is added so Terraform can setup the new networking configuration (for example: correct bridge/vlan + static ip). In order for this to work properly cloud-init must be 'enabled/in unfinished state' when Terraform first boots the cloned image. Besides enabling/placing cloud-init in a unfinished state, files added by subiquity should also be removed in order for cloud-init to manage netplan. This way cloud-init can create a new netplan configuration during the initial boot of the cloned image.
+
+The idea is to add a provisioner to the Terraform code that disables cloud-init after the deployment. The Terraform code/cloud-init should not manage netplan from that point onward. Current providers also doesn't support this (errors out) and if enforced sometimes breaks the password of user created cloud-init. Instead of Terraform/cloud-init, Ansible should manage the (network) configuration during the the VMs lifecycle.
+
 Initial code is based on [prior work](https://github.com/aerialls/madalynn-packer) by [Julien Brochet](https://twitter.com/aerialls). [Link to his blog post](https://www.aerialls.io/posts/ubuntu-server-2004-image-packer-subiquity-for-proxmox/).
 
 ## Usage
