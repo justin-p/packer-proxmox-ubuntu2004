@@ -10,7 +10,7 @@ build {
     playbook_file = "./playbooks/pre-provisioning.yml"
     extra_arguments = [
       "--extra-vars",
-      "user='${var.template_ssh_username}' password='${var.template_ssh_password}' ssh_folder='../output/ssh_keys'"
+      "user='${var.template_ssh_username}' password='${var.template_ssh_password}' ssh_folder='${var.template_ssh_key_output_folder}' ssh_key_name='${var.template_ssh_key_name}'"
     ]
   }
 }
@@ -65,7 +65,7 @@ source "proxmox" "ubuntu2004" {
   ssh_password = "${var.template_ssh_password}"
 }
 
-## Build proxmox Ubuntu 20.04 template and wait for cloud-init to finish.
+# Build proxmox Ubuntu 20.04 template and wait for cloud-init to finish.
 build {
   sources = ["source.proxmox.ubuntu2004"]
 

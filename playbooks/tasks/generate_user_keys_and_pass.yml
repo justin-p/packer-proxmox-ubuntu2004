@@ -1,13 +1,13 @@
 ---
 - name: Generate SSH Key pair for template in "{{ ssh_folder }}"
   community.crypto.openssh_keypair:
-    path: "{{ ssh_folder }}/id_ed25519"
+    path: "{{ ssh_folder }}/{{ ssh_key_name }}"
     type: ed25519
     comment: initial_template_key_generated_by_packer
 
 - name: Slurp contents of public key
   ansible.builtin.slurp: 
-    src: "{{ ssh_folder }}/id_ed25519.pub"
+    src: "{{ ssh_folder }}/{{ ssh_key_name }}.pub"
   register: slurped_pubkey
 
 - name: Decode slurped public key and store as fact
