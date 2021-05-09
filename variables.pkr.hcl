@@ -13,6 +13,11 @@ variable "template_ssh_key_output_folder" {
   default = "../output/ssh_keys"
 }
 
+variable "template_ssh_key_name" {
+  type    = string
+  default = "id_ed25519_ubuntu_packer"
+}
+
 variable "proxmox_username" {
   type    = string
   default = "packer@pve"
