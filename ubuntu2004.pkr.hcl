@@ -7,7 +7,7 @@ source "null" "ansible-pre-provisioning" {
 build {
   sources = ["source.null.ansible-pre-provisioning"]
   provisioner "ansible" {
-    playbook_file = "./playbooks/pre-provisioning.yml"
+    playbook_file = "${path.root}/playbooks/pre-provisioning.yml"
     extra_arguments = [
       "--extra-vars",
       "user='${var.template_ssh_username}' password='${var.template_ssh_password}' ssh_folder='${var.template_ssh_key_output_folder}' ssh_key_name='${var.template_ssh_key_name}'"
@@ -77,6 +77,6 @@ build {
   }
 
   provisioner "ansible" {
-    playbook_file = "./playbooks/post-provisioning.yml"
+    playbook_file = "${path.root}/playbooks/post-provisioning.yml"
   }
 }
