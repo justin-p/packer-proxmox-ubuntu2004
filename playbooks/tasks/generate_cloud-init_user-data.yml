@@ -1,0 +1,8 @@
+---
+- name: Generate cloud-init files
+  ansible.builtin.template:
+    src: "{{playbook_dir}}/templates/{{ item }}.j2"
+    dest: "{{playbook_dir}}/../output/http/{{ item }}"
+  with_items:
+    - "user-data"
+    - "meta-data"

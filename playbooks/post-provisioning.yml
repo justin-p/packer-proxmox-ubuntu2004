@@ -1,15 +1,8 @@
 ---
 - hosts: all
   tasks:
-    - name: Disable password login
-      lineinfile: 
-        dest: "/etc/ssh/sshd_config" 
-        regexp: '^(#\s*)?PasswordAuthentication '
-        line: 'PasswordAuthentication no'
-      become: yes
-
-    - name: Restart sshd
-      service: 
-        name: ssh
-        state: restarted
-      become: yes
+    - name: Run post provisioning tasks
+      block:
+        - import_tasks: tasks/sshd.yml
+        - import_tasks: tasks/enable_cloud-init.yml
+      become: true  
