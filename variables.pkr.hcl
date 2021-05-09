@@ -8,6 +8,11 @@ variable "template_ssh_password" {
   default = "ubuntu"
 }
 
+variable "template_ssh_key_output_folder" {
+  type    = string
+  default = "../output/ssh_keys"
+}
+
 variable "proxmox_username" {
   type    = string
   default = "packer@pve"
