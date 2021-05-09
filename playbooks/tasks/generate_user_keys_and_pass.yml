@@ -3,7 +3,7 @@
   community.crypto.openssh_keypair:
     path: "{{ ssh_folder }}/id_ed25519"
     type: ed25519
-    comment: initial_templat_key_generated_by_packer
+    comment: initial_template_key_generated_by_packer
 
 - name: Slurp contents of public key
   ansible.builtin.slurp: 
