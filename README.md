@@ -5,7 +5,7 @@
 Packer files to build Ubuntu 20.04 (subiquity-based) images on Proxmox. Ansible is used for 'pre' and 'post' provisioning tasks. 
 Intended to be used in combination with [this Terraform module.](https://github.com/justin-p/terraform-proxmox-ubuntu2004)
 
-Pre-provisioning tasks are used to dynamically generated local files such as the cloud-init user-data. This allows you to easily change the username/password used for the initial user created by cloud-init. SSH keys for the initial account are also generated and stored in the `output/ssh_keys` folder.
+Pre-provisioning tasks are used to dynamically generated local files such as the cloud-init user-data. This allows you to easily change the username/password used for the initial user created by cloud-init. SSH keys for the initial account are also generated and stored in the `output/ssh_keys` folder. This behavior can be changed by using the [`template_ssh_key_*` variables.](https://github.com/justin-p/packer-proxmox-ubuntu2004/blob/c5254895435cb5e1d219cfc1e78ccc0f69724735/variables.pkr.hcl#L11)
 
 Post-provisioning tasks currently disable password based authentication in the sshd_config. This is enabled by cloud-init during the provisioning. The current packer proxmox provider does not support key based authentication and needs to connect with ssh during the provisioning [to verify if cloud-init has finished](https://github.com/justin-p/packer-proxmox-ubuntu2004/blob/72153e30393ede40f12b610d4961c9a0f26fa43c/ubuntu2004.pkr.hcl#L55). 
 
