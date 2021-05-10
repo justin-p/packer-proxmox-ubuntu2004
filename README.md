@@ -14,6 +14,8 @@ Another post-provisioning is to ensure the template is 'cloud-init ready'. This 
 
 The idea is to add a provisioner to the Terraform code that disables cloud-init after the deployment. The Terraform code/cloud-init should not manage netplan from that point onward. The [current provider](https://github.com/danitso/terraform-provider-proxmox) I use also [doesn't support this (errors out)](https://github.com/danitso/terraform-provider-proxmox/issues/91) and if enforced sometimes breaks the password of the cloud-init created user.
 
+Intended to be used in combination with [this Terraform module](https://github.com/justin-p/terraform-proxmox-ubuntu2004)
+
 Initial code is based on [prior work](https://github.com/aerialls/madalynn-packer) by [Julien Brochet](https://twitter.com/aerialls). [Link to his blog post](https://www.aerialls.io/posts/ubuntu-server-2004-image-packer-subiquity-for-proxmox/).
 
 ## Usage
